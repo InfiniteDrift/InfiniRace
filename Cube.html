@@ -1,0 +1,169 @@
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>First!</title>
+		<style type="text/css">
+			body { margin: 0; }
+			canvas { width: 100%; height: 100%; }
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/loaders/BinaryLoader.js"></script>
+		<script type="text/javascript" src="js/THREEx.KeyboardState.js"></script>
+		<script type="x-shader/x-vertex" id="vertexShader">
+
+			varying vec3 vWorldPosition;
+
+			void main() {
+
+				vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+				vWorldPosition = worldPosition.xyz;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentShader">
+
+			uniform vec3 topColor;
+			uniform vec3 bottomColor;
+			uniform float offset;
+			uniform float exponent;
+
+			varying vec3 vWorldPosition;
+
+			void main() {
+
+				float h = normalize( vWorldPosition + offset ).y;
+				gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
+
+			}
+
+		</script>
+		<script type="text/javascript">
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+			var geometry = new THREE.BoxGeometry( 2, 0.75, 3 );
+			var geometry2 = new THREE.BoxGeometry( 7, 0.5, 2500 );
+			var geometry3 = new THREE.BoxGeometry( 1, 4, 1 );
+			var material = new THREE.MeshLambertMaterial( { color: 0x00ff00, opacity: 1.0, transparent: false } );
+			var material2 = new THREE.MeshLambertMaterial( { color: 0xdddddd, opacity: 1.0, transparent: false } );
+			var cube = new THREE.Mesh( geometry, material );
+			var cube2 = new THREE.Mesh( geometry2, material2 );
+			var cube3 = new THREE.Mesh( geometry3, material );
+			var cube4 = new THREE.Mesh( geometry3, material );
+			scene.add( cube );
+			scene.add( cube2 );
+			scene.add( cube3 );
+			scene.add( cube4 );
+			cube.position.y = 0.6;
+			cube2.position.y = 0;
+			cube2.position.z = 0.1;
+			cube3.position.x = 7;
+			cube4.position.z = 2;
+			cube4.position.x = -9;
+			cube4.position.z = -52;
+			
+			camera.position.z = 4;
+			camera.position.y = 1.75;
+			var keyboard = new THREEx.KeyboardState();
+			
+			scene.fog = new THREE.Fog( 0xffffff, 1, 5000 );
+			scene.fog.color.setHSL( 0.6, 0, 1 );
+			hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+				hemiLight.color.setHSL( 0.6, 1, 0.6 );
+				hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+				hemiLight.position.set( 0, 500, 0 );
+				scene.add( hemiLight );
+			dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+				dirLight.color.setHSL( 0.1, 1, 0.95 );
+				dirLight.position.set( -1, 1.75, 1 );
+				dirLight.position.multiplyScalar( 50 );
+				scene.add( dirLight );
+
+				dirLight.castShadow = true;
+
+				dirLight.shadowMapWidth = 2048;
+				dirLight.shadowMapHeight = 2048;
+
+				var d = 50;
+
+				dirLight.shadowCameraLeft = -d;
+				dirLight.shadowCameraRight = d;
+				dirLight.shadowCameraTop = d;
+				dirLight.shadowCameraBottom = -d;
+
+				dirLight.shadowCameraFar = 3500;
+				dirLight.shadowBias = -0.0001;
+				var groundGeo = new THREE.PlaneBufferGeometry( 10000, 10000 );
+				var groundMat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x050505 } );
+				groundMat.color.setHSL( 0.095, 1, 0.75 );
+
+				var ground = new THREE.Mesh( groundGeo, groundMat );
+				ground.rotation.x = -Math.PI/2;
+				scene.add( ground );
+
+				ground.receiveShadow = true;
+			cube.castShadow = true;
+			cube2.receiveShadow = true;
+			var vertexShader = document.getElementById( 'vertexShader' ).textContent;
+				var fragmentShader = document.getElementById( 'fragmentShader' ).textContent;
+				var uniforms = {
+					topColor: 	 { type: "c", value: new THREE.Color( 0x0077ff ) },
+					bottomColor: { type: "c", value: new THREE.Color( 0xffffff ) },
+					offset:		 { type: "f", value: 33 },
+					exponent:	 { type: "f", value: 0.6 }
+				};
+				uniforms.topColor.value.copy( hemiLight.color );
+
+				scene.fog.color.copy( uniforms.bottomColor.value );
+
+				var skyGeo = new THREE.SphereGeometry( 4000, 32, 15 );
+				var skyMat = new THREE.ShaderMaterial( { vertexShader: vertexShader, fragmentShader: fragmentShader, uniforms: uniforms, side: THREE.BackSide } );
+
+				var sky = new THREE.Mesh( skyGeo, skyMat );
+				scene.add( sky );
+			
+			var loader = new THREE.BinaryLoader();
+			var car;
+			new loader.load("https://raw.githubusercontent.com/mrdoob/three.js/master/examples/obj/veyron/VeyronNoUv_bin.js", function(geometry) { 
+				var orange    = new THREE.MeshLambertMaterial( { color: 0x995500, opacity: 1.0, transparent: false } ); 
+				var mesh	= new THREE.Mesh( geometry, orange ); 
+				mesh.scale.x = mesh.scale.y = mesh.scale.z = 0.05; 
+				scene.add( mesh ); 
+				car = mesh; 
+			});
+			function render() {
+				requestAnimationFrame(render);
+				renderer.render(scene, camera);
+				cube.rotation.y = 0;
+				if( keyboard.pressed("left") ) { cube.rotation.y = 0.1; cube.position.x -= 0.1; }
+				if( keyboard.pressed("right") ) { cube.rotation.y = -0.1; cube.position.x += 0.1; }
+				if( !keyboard.pressed("left") && !keyboard.pressed("right") ) { cube.rotation.y = 0; }
+				cube3.position.z += 2;
+				if (cube3.position.z > 5) {
+					cube3.position.z = -100 - Math.random()*50;
+					cube3.position.x = 7 + Math.random()*10;
+					if (Math.random() > 0.25) {
+						cube3.position.x *= -1;
+					}
+				}
+				cube4.position.z += 2;
+				if (cube4.position.z > 5) {
+					cube4.position.z = -100 - Math.random()*50;
+					cube4.position.x = -9 - Math.random()*10;
+					if (Math.random() > 0.25) {
+						cube4.position.x *= -1;
+					}
+				}
+			}
+			render();
+		</script>
+	</body>
+</html>
