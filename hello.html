@@ -1,0 +1,97 @@
+<head>
+    <title>InfiniRace</title>
+
+</head>
+<body>
+    <div class="navbar navbar-black" role="navigation">
+        <div class="navbar-header">
+            <!--<a class="navbar-brand" href="#">INFINIRACE</a>-->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <!--<ul class="nav navbar-nav">
+                <li class="active"><a href="#">Link</a></li>
+            </ul>-->
+            <ul class="nav navbar-nav navbar-right">
+                {{> loginButtons}} <!-- here -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="street-machine" align="center">
+        <h1 class="street">INFINI</h1>
+        <h3 class="machine">Race</h3>
+    </div>
+
+    {{#if currentUser}}
+
+        <div class="content" align="center">
+            <div class="menue">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <a href="#upload" type="button" class="btn btn-default">Skins</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a href="https://www.youtube.com/watch?v=oHg5SJYRHA0" type="button" class="btn btn-default">Race!</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a href="#leaderboard" type="button" class="btn btn-default">Leaderboard</a>
+                    </div>
+                </div>
+            </div>
+            <div id="upload" class="upload">
+                <form name="uploadForm">
+                    <input id="fileInput" type="file" multiple="multiple">
+                </form>
+                {{>imageView}}
+            </div>
+            <div id="leaderboard" class="Leaderboard">
+                {{> leaderboard}}
+            </div>
+
+        </div>
+    {{/if}}
+
+</body>
+
+<template name="images">
+    <div id="images">
+        {{#each images}}
+            URL: {{this.url}}
+            <img src="{{this.url store='thumbnail'}}" alt="thumbnail">
+        {{/each}}
+    </div>
+</template>
+
+
+<template name="imageView">
+    <div class="imageView">
+        {{#each images}}
+            <div>
+                <a href="{{this.url}}" target="_blank"><img src="{{this.url}}" alt="" class="thumbnail" /></a>
+            </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="leaderboard">
+    <div class="leaderboard">
+        <div class="leaderboard-top-5">
+            {{#each players}}
+                {{> player}}
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="player">
+    <div class="player {{selected}}">
+        <span class="name">{{name}}</span>
+        <span class="score">{{score}}</span>
+    </div>
+</template>

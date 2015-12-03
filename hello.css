@@ -1,0 +1,159 @@
+/* CSS declarations go here */
+/* logo css by http://codepen.io/anon/pen/KdjwLj */
+@import url(http://fonts.googleapis.com/css?family=Mr+Dafoe);
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:900);
+@import url(http://fonts.googleapis.com/css?family=Righteous);
+@import url(http://fonts.googleapis.com/css?family=Candal);
+
+@import url(http://fonts.googleapis.com/css?family=Permanent+Marker);
+
+@import url(http://fonts.googleapis.com/css?family=Monoton);
+
+body {
+    background: url('maxresdefault.jpg') no-repeat center center fixed; /*maxresdefault.jpg*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-top: 0px;
+}
+
+.street-machine {
+    position: relative;
+}
+
+.street {
+    position: relative;
+    font-family: 'Candal', sans-serif;
+    font-size: 180px;
+    font-style: italic;
+    -webkit-text-stroke: 0.1px #ed2121;
+    color: #fff;
+    text-shadow: -10px 10px 0px #ed2121;
+    margin: 0;
+    z-index: -2;
+}
+
+.windows .street {
+    -webkit-text-stroke: 4px #ed2121;
+}
+/*
+.street:before {
+    content: '';
+    position: absolute;
+    height: 4px;
+    width: 590px;
+    top: 83px;
+    left: 48px;
+    background: #ed2121;
+    box-shadow: -8px 13px #ed2121;
+}
+*/
+.windows .street:before {
+    left: 55px;
+    width: 659px;
+}
+
+/*.street:after {
+    content: '';
+    position: relative;
+    height: 4px;
+    width: 580px;
+    top: 109px;
+    left: 36px;
+    background: #ed2121;
+    box-shadow: -4px 13px #ed2121;
+    margin-left: auto;
+    margin-right: auto;
+}*/
+
+.machine {
+    position: relative;
+    left: 50px;
+    top: 90px;
+    font-family: 'Mr Dafoe', cursive;
+    font-size: 130px;
+    transform:rotate(-15deg);
+    -ms-transform:rotate(-15deg); /* IE 9 */
+    -webkit-transform:rotate(-15deg); /* Safari and Chrome */
+    color: #ed2121;
+    margin: 0;
+    margin-top: -160px;
+    padding-left: 430px;
+    text-shadow: 1px 2px 0px #F9D2D2;
+    z-index: -1;
+}
+
+.windows .machine {
+    margin-top: -200px;
+}
+
+.content {
+    margin-top: 100px;
+}
+
+div.leaderboard{
+    margin-top: 30px;
+    background-color: rgba(96, 47, 107, 0.3);
+}
+
+div.menue{
+    max-width: 700px;
+    margin-bottom: 30px;
+}
+
+.leaderboard-top-5{
+    opacity: 1;
+}
+
+#outer {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.player {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.player .name {
+    display: inline-block;
+    width: 300px;
+    font-size: 1.75em;
+    color: #777;
+}
+
+.player .score {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    font-size: 2em;
+    font-weight: bold;
+    color: #777;
+}
+
+.player.selected {
+    background-color: yellow;
+}
+
+.player.selected .score {
+    color: black;
+}
+
+.details, .none {
+    font-weight: bold;
+    font-size: 2em;
+    border-style: dashed none none none;
+    border-color: #ccc;
+    border-width: 4px;
+    margin: 50px 10px;
+    padding: 10px 0px;
+}
+
+.none {
+    color: #777;
+}
+
+.inc {
+    cursor: pointer;
+}
