@@ -1,5 +1,3 @@
-<!doctype html>
-<html class="no-js" lang="">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,7 +10,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="client/compatibility/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -22,15 +20,15 @@
         <!-- Add your site or application content here -->
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/{{JQUERY_VERSION}}/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/three.min.js"></script>
-        <script src="js/BinaryLoader.js"></script>
-        <script src="js/THREEx.KeyboardState.js"></script>
-        <script type="x-shader/x-vertex" src="js/shader.vs" id="vertexShader"></script>
-        <script type="x-shader/x-fragment" src="js/shader.fs" id="fragmentShader"></script>
-        <script type="x-shader/x-fragment" src="js/bokeh.fs" id="bokehShader"></script>
-        <script src="js/main.js"></script>
+        <script>window.jQuery || document.write('<script src="compatibility/vendor/jquery-{{JQUERY_VERSION}}.min.compatibility"><\/script>')</script>
+        <script src="client/compatibility/plugins.js"></script>
+        <script src="client/compatibility/three.min.js"></script>
+        <script src="client/compatibility/BinaryLoader.js"></script>
+        <script src="client/compatibility/THREEx.KeyboardState.js"></script>
+        <script type="x-shader/x-vertex" src="client/compatibility/shader.vs" id="vertexShader"></script>
+        <script type="x-shader/x-fragment" src="client/compatibility/shader.fs" id="fragmentShader"></script>
+        <script type="x-shader/x-fragment" src="client/compatibility/bokeh.fs" id="bokehShader"></script>
+        <script src="client/compatibility/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -44,4 +42,4 @@
             */
         </script>
     </body>
-</html>
+

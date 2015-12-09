@@ -240,7 +240,7 @@ scene.add( sky );
 
 /*var loader = new THREE.BinaryLoader();
 var car;
-new loader.load("./js/veyron/VeyronNoUv_bin.js", function(carGeometry) {
+new loader.load("./compatibility/veyron/VeyronNoUv_bin.compatibility", function(carGeometry) {
     var orange    = new THREE.MeshLambertMaterial( { color: 0x995500, opacity: 1.0, transparent: false } );
     var mesh	= new THREE.Mesh( carGeometry, orange );
     mesh.scale.x = mesh.scale.y = mesh.scale.z = 0.5;
@@ -252,7 +252,7 @@ new loader.load("./js/veyron/VeyronNoUv_bin.js", function(carGeometry) {
 var CARS = {
     "veyron": 	{
         name:	"Bugatti Veyron",
-        url: 	"./js/veyron/VeyronNoUv_bin.js",
+        url: 	"./compatibility/veyron/VeyronNoUv_bin.js",
         author: '<a href="http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=1129" target="_blank">Troyano</a>',
         init_rotation: [ 0, 0, 0 ],
         scale: 5.5,
@@ -379,7 +379,7 @@ myCar.position.x = 10;
 var dae;
 var loader = new THREE.ColladaLoader();
 //loader.options.convertUpAxis = true;
-loader.load( './js/model.dae', function ( collada ) {
+loader.load( './compatibility/model.dae', function ( collada ) {
     dae = collada.scene;
     dae.scale.x = dae.scale.y = dae.scale.z = 0.001;
     dae.updateMatrix();

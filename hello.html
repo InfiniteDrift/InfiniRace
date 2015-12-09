@@ -3,6 +3,7 @@
 
 </head>
 <body>
+    <!--Invisible navbar with login button-->
     <div class="navbar navbar-black" role="navigation">
         <div class="navbar-header">
             <!--<a class="navbar-brand" href="#">INFINIRACE</a>-->
@@ -23,11 +24,15 @@
         </div>
     </div>
 
+    <!--Logo TODO: fix location of stripes-->
     <div class="street-machine" align="center">
         <h1 class="street">INFINI</h1>
         <h3 class="machine">Race</h3>
     </div>
 
+    <!--{{> Racers.find().fetch()}}-->
+
+    <!-- Only show content for logged on users -->
     {{#if currentUser}}
 
         <div class="content" align="center">
@@ -37,7 +42,7 @@
                         <a href="#upload" type="button" class="btn btn-default">Skins</a>
                     </div>
                     <div class="btn-group" role="group">
-                        <a href="https://www.youtube.com/watch?v=oHg5SJYRHA0" type="button" class="btn btn-default">Race!</a>
+                        <a href="#" type="button" class="btn btn-default StartGame">Race!</a>
                     </div>
                     <div class="btn-group" role="group">
                         <a href="#leaderboard" type="button" class="btn btn-default">Leaderboard</a>
