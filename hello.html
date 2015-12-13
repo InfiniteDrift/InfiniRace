@@ -30,8 +30,6 @@
         <h3 class="machine">Race</h3>
     </div>
 
-    <!--{{> Racers.find().fetch()}}-->
-
     <!-- Only show content for logged on users -->
     {{#if currentUser}}
 
@@ -87,15 +85,15 @@
 <template name="leaderboard">
     <div class="leaderboard">
         <div class="leaderboard-top-5">
-            {{#each players}}
-                {{> player}}
+            {{#each racers}}
+                {{> racer}}
             {{/each}}
         </div>
     </div>
 </template>
 
-<template name="player">
-    <div class="player {{selected}}">
+<template name="racer">
+    <div class="racer {{selected}}">
         <span class="name">{{name}}</span>
         <span class="score">{{score}}</span>
     </div>

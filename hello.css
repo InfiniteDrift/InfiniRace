@@ -111,19 +111,19 @@ div.menue{
     margin: 0 auto;
 }
 
-.player {
+.racer {
     cursor: pointer;
     padding: 5px;
 }
 
-.player .name {
+.racer .name {
     display: inline-block;
     width: 300px;
     font-size: 1.75em;
     color: #777;
 }
 
-.player .score {
+.racer .score {
     display: inline-block;
     width: 100px;
     text-align: right;
@@ -136,7 +136,7 @@ div.menue{
     background-color: yellow;
 }
 
-.player.selected .score {
+.racer.selected .score {
     color: black;
 }
 

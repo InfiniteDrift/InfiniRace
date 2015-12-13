@@ -24,3 +24,5 @@ cfs:standard-packages
 cfs:gridfs
 cfs:filesystem
 mrt:modernizr-meteor
+autopublish
+meteorhacks:fast-render
