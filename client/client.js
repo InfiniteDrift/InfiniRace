@@ -4,6 +4,8 @@
 Meteor.subscribe("racers")
 Meteor.subscribe("players")
 
+carColours = [["#ff9900", "Orange"], ["#ff3300", "Red"], ["#FFBAD2","Pink"], ["#000000","Black"], ["#ffffff", "White"], ["#0000FF","Blue"]]
+
 //console.log(Meteor.username)
 
 /*
@@ -98,7 +100,17 @@ Template.leaderboard.racers = function () {
 
 Template.colours.helpers({
     colours: function(){
-        return [["#ff9900", "Orange"], ["#ff3300", "Red"], ["#FFBAD2","Pink"], ["#000000","Black"], ["#ffffff", "White"], ["#0000FF","Blue"]]
+        var currentColour = Racers.findOne({id:Meteor.userId()}).carColour;
+        var map = new Map(carColours);
+        var colourName = map.get(currentColour);
+        var selected = [];
+        if(typeof colourName !== undefined) {
+            selected = [[currentColour, colourName]]
+        } else {
+            selected = [["","Please select"]]
+        }
+        return selected.concat(carColours)
+
     }
 });
 

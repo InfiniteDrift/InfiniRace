@@ -80,9 +80,14 @@
 <template name="colours">
     <div class="colours">
         <select id="colour-select">
-            <option disabled="disabled" selected="selected">Please Select</option>
             {{#each colours}}
-                <option value="{{this.[0]}}">{{this.[1]}}</option>
+                {{#if isFirst}}
+                    <option disabled="disabled" selected="selected" value="{{this.[0]}}">{{this.[1]}}</option>
+
+                {{else}}
+                    <option value="{{this.[0]}}">{{this.[1]}}</option>
+
+                {{/if}}
             {{/each}}
         </select>
     </div>

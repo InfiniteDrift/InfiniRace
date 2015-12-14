@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8527ace6-0296-4731-97dc-ad7c694d6de4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/client.js" afterPath="$PROJECT_DIR$/client/client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hello.css" afterPath="$PROJECT_DIR$/hello.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hello.html" afterPath="$PROJECT_DIR$/hello.html" />
     </list>
     <ignored path="InfiniRace.iws" />
@@ -37,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/client.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.851852">
-              <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.6185567">
+              <caret line="108" column="16" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -59,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hello.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="hello.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hello.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.60954446">
-              <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
+            <state vertical-scroll-proportion="3.3137255">
+              <caret line="92" column="10" selection-start-line="92" selection-start-column="10" selection-end-line="92" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -156,9 +155,9 @@
         <option value="$PROJECT_DIR$/client/game/game.js" />
         <option value="$PROJECT_DIR$/client/compatability/game.js" />
         <option value="$PROJECT_DIR$/client/lib/compatability/game.js" />
-        <option value="$PROJECT_DIR$/client/client.js" />
         <option value="$PROJECT_DIR$/hello.css" />
         <option value="$PROJECT_DIR$/hello.html" />
+        <option value="$PROJECT_DIR$/client/client.js" />
       </list>
     </option>
   </component>
@@ -872,21 +871,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/client.js">
+    <entry file="file://$PROJECT_DIR$/hello.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.851852">
-          <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="3.3137255">
+          <caret line="92" column="10" selection-start-line="92" selection-start-column="10" selection-end-line="92" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hello.html">
+    <entry file="file://$PROJECT_DIR$/client/client.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60954446">
-          <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
-          <folding />
+        <state vertical-scroll-proportion="0.6185567">
+          <caret line="108" column="16" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
