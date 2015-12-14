@@ -30,7 +30,7 @@
         <h3 class="machine">Race</h3>
     </div>
 
-    <div id="game">SPELET</div>
+    <div id="game"></div>
 
 
     <!-- Only show content for logged on users -->
@@ -92,21 +92,21 @@
     {{#if currentUser}}
 
         <div class="content" align="center">
-            <div class="menue">
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <a href="#profile" type="button" class="btn btn-default">Profile</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a href="#" type="button" class="btn btn-default startGame">Race!</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a href="#leaderboard" type="button" class="btn btn-default">Leaderboard</a>
-                    </div>
+            <div class="menue row">
+                <div class="col-md-4" align="right">
+                    <a href="#profile" class="button">Profile</a>
                 </div>
+                <div class="col-md-4">
+                    <a href="#" class="button startGame">Race!</a>
+                </div>
+                <div class="col-md-4" align="left">
+                    <a href="#leaderboard" class="button">Leaderboard</a>
+                </div>
+
+
             </div>
 
-            <div id="leaderboard" class="Leaderboard border">
+            <div id="leaderboard col-md-12" class="Leaderboard border">
                 {{> leaderboard}}
             </div>
 

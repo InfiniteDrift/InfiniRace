@@ -70,17 +70,13 @@ body {
 
 .machine {
     position: relative;
-    left: 50px;
-    top: 90px;
-    font-family: 'Mr Dafoe', cursive;
+    top: 120px;
+    font-family: "Mr Dafoe",cursive;
     font-size: 130px;
-    transform:rotate(-15deg);
-    -ms-transform:rotate(-15deg); /* IE 9 */
-    -webkit-transform:rotate(-15deg); /* Safari and Chrome */
-    color: #ed2121;
-    margin: 0;
-    margin-top: -160px;
-    padding-left: 430px;
+    transform: rotate(-15deg);
+    color: #ED2121;
+    margin: -160px 0px 0px;
+    padding-left: 480px;
     text-shadow: 1px 2px 0px #F9D2D2;
     z-index: -1;
 }
@@ -101,9 +97,10 @@ body {
 
 
 
-div.menue{
+.menue{
     max-width: 700px;
     margin-bottom: 30px;
+    white-space-collapsing: pre;
 }
 
 .leaderboard-top-5{
@@ -180,3 +177,23 @@ div.menue{
 .example {
     -webkit-text-fill-color: white;
 }
+
+a.button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border-style: double;
+    border-width: thick;
+    cursor:pointer;
+    overflow: hidden;
+    font-family: Consolas, monaco, monospace;
+    font-size: x-large;
+    display: block;
+    width: 200px;
+    height: 70px;
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    margin: 10px;
+
+}
+

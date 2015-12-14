@@ -59,6 +59,20 @@ Template.home.events({
     'click .startGame': function(event){
         console.log("Starting RACEEEE!!!!");
         initModel();
+    },
+    'change #fileInput': function (event) {
+        var id;
+        FS.Utility.eachFile(event, function(file) {
+            id = Images.insert(file)
+        });
+        $("form")[0].reset();
+        console.log(id._id);
+
+        //Delete old profile pic from db
+        if ( typeof Meteor.user().profile["picture"] !== 'undefined') {
+            Images.remove(Meteor.user().profile["picture"])
+        }
+        Meteor.users.update(Meteor.userId(), {$set: {"profile.picture": id._id}});
     }
 });
 
