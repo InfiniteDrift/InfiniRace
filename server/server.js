@@ -10,7 +10,7 @@ Meteor.startup(function () {
             "Nikola Tesla",
             "Claude Shannon"];
         for (var i = 0; i < names.length; i++)
-            Racers.insert({name: names[i], id: null, score: Math.floor(Math.random()*10)*5, posx: 0, posy: 0, posz:0, velocity: 0, direction:0, colour: "#ffffff"});
+            Racers.insert({name: names[i], id: null, score: Math.floor(Math.random()*10)*5, posx: 0, posy: 0, posz:0, velocity: 0, direction:0, carColour: "#ffffff"});
     }
     Images.allow({
         'insert': function () {

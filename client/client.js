@@ -92,7 +92,7 @@ Template.colours.events({
     "change #colour-select": function (event, template) {
         var category = $(event.currentTarget).val();
         console.log("category : " + category);
-        Racers.update( {_id:Racers.findOne({id:Meteor.userId()})['_id']}, {$set: {colour:category}});
+        Racers.update( {_id:Racers.findOne({id:Meteor.userId()})['_id']}, {$set: {carColour:category}});
         // additional code to do what you want with the category
     }
 });
