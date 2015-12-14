@@ -61,8 +61,9 @@
 <template name="leaderboard">
     <div class="leaderboard">
         <div class="leaderboard-top-5">
-            <h1>Leaderboard</h1>
+            <h1><b>Leaderboard</b></h1>
             {{#each racers}}
+                {{this.[0]}}
                 {{> racer}}
             {{/each}}
         </div>
@@ -111,14 +112,13 @@
 
             </div>
 
-            <div id="leaderboard col-md-12" class="Leaderboard border">
+            <div id="leaderboard" class="Leaderboard border">
                 {{> leaderboard}}
             </div>
 
             <div id="profile" class="leaderboard border">
-                <h1>Profile</h1>
-                <div class="col-md-3"></div>
-                <div id="upload" class="upload no-border col-md-3">
+                <h1><b>Profile</b></h1>
+                <div id="upload" class="upload no-border col-sm-6" align="right">
                     <div class="border">
                         Profile picture
                     </div>
@@ -128,7 +128,7 @@
                     </form>
 
                 </div>
-                <div class="no-border col-md-3">
+                <div class="no-border col-md-6" align="left">
                     <div class="border">
                         Name: {{ currentUser.username}}
                         <br><br>
@@ -138,7 +138,7 @@
 
                     {{> colours}}
                 </div>
-                <div class="col-md-3"></div>
+                <div class="clear"></div>
             </div>
 
 
