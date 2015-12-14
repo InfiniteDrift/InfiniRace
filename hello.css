@@ -93,7 +93,7 @@ body {
     margin-top: 100px;
 }
 
-div.leaderboard{
+.leaderboard{
     margin-top: 30px;
     background-color: rgba(96, 47, 107, 0.3);
 
@@ -175,4 +175,8 @@ div.menue{
 .profilePic {
     max-width: 200px;
     max-height: 200px;
+}
+
+.example {
+    -webkit-text-fill-color: white;
 }

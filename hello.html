@@ -30,60 +30,11 @@
         <h3 class="machine">Race</h3>
     </div>
 
+    <div id="game">SPELET</div>
+
+
     <!-- Only show content for logged on users -->
-    {{#if currentUser}}
 
-        <div class="content" align="center">
-            <div class="menue">
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <a href="#upload" type="button" class="btn btn-default">Skins</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a href="#" type="button" class="btn btn-default StartGame">Race!</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a href="#leaderboard" type="button" class="btn btn-default">Leaderboard</a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="leaderboard" class="Leaderboard border">
-                {{> leaderboard}}
-            </div>
-
-            <div id="profile" class="leaderboard border">
-                <h1>Profile</h1>
-                <div class="col-md-3"></div>
-                <div id="upload" class="upload no-border col-md-3">
-                    <div class="border">
-                        Profile picture
-                    </div>
-                    {{>imageView}}
-                    <form name="uploadForm">
-                        <input id="fileInput" type="file" multiple="multiple">
-                    </form>
-
-                </div>
-                <div class="no-border col-md-3">
-                    <div class="border">
-                        Name: {{ currentUser.username}}
-                        <br><br>
-
-                        Vehicle colour:
-                    </div>
-
-                     {{> colours}}
-                </div>
-
-                <div class="col-md-3"></div>
-
-
-
-            </div>
-
-        </div>
-    {{/if}}
 
 </body>
 
@@ -135,4 +86,57 @@
             {{/each}}
         </select>
     </div>
+</template>
+
+<template name="home">
+    {{#if currentUser}}
+
+        <div class="content" align="center">
+            <div class="menue">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <a href="#profile" type="button" class="btn btn-default">Profile</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a href="#" type="button" class="btn btn-default startGame">Race!</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a href="#leaderboard" type="button" class="btn btn-default">Leaderboard</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leaderboard" class="Leaderboard border">
+                {{> leaderboard}}
+            </div>
+
+            <div id="profile" class="leaderboard border">
+                <h1>Profile</h1>
+                <div class="col-md-3"></div>
+                <div id="upload" class="upload no-border col-md-3">
+                    <div class="border">
+                        Profile picture
+                    </div>
+                    {{>imageView}}
+                    <form name="uploadForm">
+                        <input id="fileInput" type="file" multiple="multiple">
+                    </form>
+
+                </div>
+                <div class="no-border col-md-3">
+                    <div class="border">
+                        Name: {{ currentUser.username}}
+                        <br><br>
+
+                        Vehicle colour:
+                    </div>
+
+                    {{> colours}}
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+
+        </div>
+    {{/if}}
 </template>
