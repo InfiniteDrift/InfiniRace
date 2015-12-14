@@ -75,7 +75,11 @@ Accounts.ui.config({
 });
 
 Template.leaderboard.racers = function () {
+
     return Racers.find({}, {sort: {score:-1}, limit: 5});
+
+    //top5.picture = Images.find({_id: {$in: Meteor.users.find(top5.id).profile["picture"]}});
+
 };
 
 Template.colours.helpers({
@@ -85,9 +89,10 @@ Template.colours.helpers({
 });
 
 Template.colours.events({
-    "change #colourSelect": function (event, template) {
+    "change #colour-select": function (event, template) {
         var category = $(event.currentTarget).val();
         console.log("category : " + category);
+        Racers.update( {_id:Racers.findOne({id:Meteor.userId()})['_id']}, {$set: {colour:category}});
         // additional code to do what you want with the category
     }
 });

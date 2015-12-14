@@ -48,15 +48,38 @@
                 </div>
             </div>
 
-            {{> colours}}
-            <div id="upload" class="upload">
-                <form name="uploadForm">
-                    <input id="fileInput" type="file" multiple="multiple">
-                </form>
-                {{>imageView}}
-            </div>
-            <div id="leaderboard" class="Leaderboard">
+            <div id="leaderboard" class="Leaderboard border">
                 {{> leaderboard}}
+            </div>
+
+            <div id="profile" class="leaderboard border">
+                <h1>Profile</h1>
+                <div class="col-md-3"></div>
+                <div id="upload" class="upload no-border col-md-3">
+                    <div class="border">
+                        Profile picture
+                    </div>
+                    {{>imageView}}
+                    <form name="uploadForm">
+                        <input id="fileInput" type="file" multiple="multiple">
+                    </form>
+
+                </div>
+                <div class="no-border col-md-3">
+                    <div class="border">
+                        Name: {{ currentUser.username}}
+                        <br><br>
+
+                        Vehicle colour:
+                    </div>
+
+                     {{> colours}}
+                </div>
+
+                <div class="col-md-3"></div>
+
+
+
             </div>
 
         </div>
@@ -78,7 +101,7 @@
     <div class="imageView">
         {{#each images}}
             <div>
-                <a href="{{this.url}}" target="_blank"><img src="{{this.url}}" alt="" class="thumbnail" /></a>
+                <a href="{{this.url}}" target="_blank"><img src="{{this.url}}" alt="" class="profilePic thumbnail" /></a>
             </div>
         {{/each}}
     </div>
