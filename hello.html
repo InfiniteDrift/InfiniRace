@@ -47,6 +47,8 @@
                     </div>
                 </div>
             </div>
+
+            {{> colours}}
             <div id="upload" class="upload">
                 <form name="uploadForm">
                     <input id="fileInput" type="file" multiple="multiple">
@@ -85,6 +87,7 @@
 <template name="leaderboard">
     <div class="leaderboard">
         <div class="leaderboard-top-5">
+            <h1>Leaderboard</h1>
             {{#each racers}}
                 {{> racer}}
             {{/each}}
@@ -96,5 +99,17 @@
     <div class="racer {{selected}}">
         <span class="name">{{name}}</span>
         <span class="score">{{score}}</span>
+    </div>
+</template>
+
+
+<template name="colours">
+    <div class="colours">
+        <select id="colour-select">
+            <option disabled="disabled" selected="selected">Please Select</option>
+            {{#each colours}}
+                <option value="{{this.[0]}}">{{this.[1]}}</option>
+            {{/each}}
+        </select>
     </div>
 </template>

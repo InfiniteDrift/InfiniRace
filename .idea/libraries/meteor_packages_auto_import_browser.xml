@@ -69,7 +69,9 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/es5-shim/4.1.14/web.browser/export_globals.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ian_accounts-ui-bootstrap-3/1.2.84/web.browser/accounts_ui.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/es5-shim/4.1.14/web.browser/import_globals.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/css/bootstrap.css" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ian_accounts-ui-bootstrap-3/1.2.84/web.browser/login_buttons_dropdown.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/js/bootstrap.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/es5-shim/4.1.14/web.browser/console.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ian_accounts-ui-bootstrap-3/1.2.84/web.browser/login_buttons_dialogs.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/service-configuration/1.0.5/web.browser/service_configuration_common.js" />
@@ -252,7 +254,9 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/es5-shim/4.1.14/web.browser/export_globals.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ian_accounts-ui-bootstrap-3/1.2.84/web.browser/accounts_ui.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/es5-shim/4.1.14/web.browser/import_globals.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/css/bootstrap.css" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ian_accounts-ui-bootstrap-3/1.2.84/web.browser/login_buttons_dropdown.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/js/bootstrap.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/es5-shim/4.1.14/web.browser/console.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ian_accounts-ui-bootstrap-3/1.2.84/web.browser/login_buttons_dialogs.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/service-configuration/1.0.5/web.browser/service_configuration_common.js" />

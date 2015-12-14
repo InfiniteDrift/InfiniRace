@@ -78,3 +78,16 @@ Template.leaderboard.racers = function () {
     return Racers.find({}, {sort: {score:-1}, limit: 5});
 };
 
+Template.colours.helpers({
+    colours: function(){
+        return [["#ff9900", "Orange"], ["#ff3300", "Red"], ["#FFBAD2","Pink"], ["#000000","Black"], ["#ffffff", "White"], ["#0000FF","Blue"]]
+    }
+});
+
+Template.colours.events({
+    "change #colourSelect": function (event, template) {
+        var category = $(event.currentTarget).val();
+        console.log("category : " + category);
+        // additional code to do what you want with the category
+    }
+});
