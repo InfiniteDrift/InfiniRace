@@ -200,3 +200,11 @@ a.button {
 {
     clear: both;
 }
+
+p{
+    color: white;
+}
+
+.profile {
+    font-size: large;
+}

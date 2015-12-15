@@ -1,5 +1,87 @@
 <template name="example">
-    <div class="leaderboard no-border example">
-        <h1>API Example page</h1>
+    {{> logo}}
+    <p align="center">
+        <div class="leaderboard no-border example">
+            <h1>API Example page</h1>
+        </div>
+
+        {{> racersExample}}
+
+        {{> positionCalculation}}
+    </p>
+
+
+</template>
+
+<template name="racersExample">
+    <div class="leaderboard">
+        <p><h1><b>DDP database subscribtion</b></h1>
+        Meteor.subscribe("racers").
+        Up-to date player variables. <br> <a class="border" href="https://www.meteor.com/ddp">It's like rest but better.</a></p>
+
+        {{> racersTable}}
+
+        <div class="clear"></div>
+
     </div>
 </template>
+
+<template name="racersTable">
+        <table class="table" style="max-width: 700px">
+            <p>
+            <tr>
+                <td>Name</td>
+                <td>Score</td>
+                <td>#Colour</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>Z</td>
+                <td>Velocity</td>
+                <td>Direction</td>
+
+            </tr>
+            </p>
+            {{#each racers}}
+                {{> racerRow}}
+            {{/each}}
+        </table>
+        <clear class="clear"></clear>
+</template>
+
+<template name="racerRow">
+    <p>
+        <tr>
+            <td>
+                {{name}}
+            </td>
+            <td>
+                {{score}}
+            </td>
+            <td>
+                {{carColour}}
+            </td>
+            <td>
+                {{posx}}
+            </td>
+            <td>
+                {{posy}}
+            </td>
+            <td>
+                {{posz}}
+            </td>
+            <td>
+                {{velocity}}
+            </td>
+            <td>
+                {{direction}}
+            </td>
+        </tr>
+    </p>
+</template>
+
+<template name="positionCalculation">
+    <h1>DDP function calls</h1>
+    Todo :)
+</template>
+
+

@@ -15,7 +15,3 @@ console.log('hej');
 
 
 
-Router.route("/example")
-Router.route("/", {
-    template: "home"
-});

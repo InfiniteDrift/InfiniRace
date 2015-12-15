@@ -25,10 +25,7 @@
     </div>
 
     <!--Logo TODO: fix location of stripes-->
-    <div class="street-machine" align="center">
-        <h1 class="street">INFINI</h1>
-        <h3 class="machine">Race</h3>
-    </div>
+
 
     <div id="game"></div>
 
@@ -37,6 +34,13 @@
 
 
 </body>
+
+<template name="logo">
+    <div class="street-machine" align="center">
+        <h1 class="street">INFINI</h1>
+        <h3 class="machine">Race</h3>
+    </div>
+</template>
 
 <template name="images">
     <div id="images">
@@ -95,6 +99,7 @@
 </template>
 
 <template name="home">
+    {{> logo}}
     {{#if currentUser}}
 
         <div class="content" align="center">
@@ -103,7 +108,7 @@
                     <a href="#profile" class="button">Profile</a>
                 </div>
                 <div class="col-md-4">
-                    <a href="#" class="button startGame">Race!</a>
+                    <a href="/game" class="button startGame">Race!</a>
                 </div>
                 <div class="col-md-4" align="left">
                     <a href="#leaderboard" class="button">Leaderboard</a>
@@ -116,7 +121,7 @@
                 {{> leaderboard}}
             </div>
 
-            <div id="profile" class="leaderboard border">
+            <div id="profile" class="leaderboard border profile">
                 <h1><b>Profile</b></h1>
                 <div id="upload" class="upload no-border col-sm-6" align="right">
                     <div class="border">
