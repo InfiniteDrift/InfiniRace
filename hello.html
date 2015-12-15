@@ -2,8 +2,12 @@
     <title>InfiniRace</title>
 
 </head>
+
 <body>
-    <!--Invisible navbar with login button-->
+<div id="game"></div>
+
+</body>
+<template name="navbar">
     <div class="navbar navbar-black" role="navigation">
         <div class="navbar-header">
             <!--<a class="navbar-brand" href="#">INFINIRACE</a>-->
@@ -23,17 +27,17 @@
             </ul>
         </div>
     </div>
+</template>
+    <!--Invisible navbar with login button-->
+
 
     <!--Logo TODO: fix location of stripes-->
 
 
-    <div id="game"></div>
 
 
     <!-- Only show content for logged on users -->
 
-
-</body>
 
 <template name="logo">
     <div class="street-machine" align="center">
@@ -46,7 +50,7 @@
     <div id="images">
         {{#each images}}
             URL: {{this.url}}
-            <img src="{{this.url store='thumbnail'}}" alt="thumbnail">
+            <img src="{{this.url store='thumbnail'}}" alt="stig.jpg">
         {{/each}}
     </div>
 </template>
@@ -99,6 +103,7 @@
 </template>
 
 <template name="home">
+    {{> navbar}}
     {{> logo}}
     {{#if currentUser}}
 
