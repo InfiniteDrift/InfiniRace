@@ -34,7 +34,9 @@ Meteor.startup(function () {
         }
     });
 
-    console.log(roadCurve(1));
+    Meteor.setInterval(recalcPlayers, 1000/60);
+
+    console.log('InfiniRace: Server started');
 
 });
 

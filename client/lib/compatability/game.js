@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////
 ///////////////////////// It begins! /////////////////////////
 //////////////////////////////////////////////////////////////
-
+/*
 // Server globals
 
 //var angleOffset = -Math.PI/2;
@@ -347,9 +347,11 @@ function renderGameScene() {
     requestAnimationFrame(renderGameScene);
     renderer.render(scene, camera);
 }
+*/
 
+/*
 function updateCar(car, state) {
-    /* Move a 3D car object that may or may not belong to _this_ player. */
+    // Move a 3D car object that may or may not belong to _this_ player.
     car.position.x = state.posx;
     car.position.y = 0.12;
     car.position.z = state.posz;
@@ -371,7 +373,7 @@ function updatePlayers(players) {
     }
 }
 
-
+*/
 
 
 
@@ -411,7 +413,7 @@ function updatePlayers(players) {
 //////////////////////////////////////////////////////////////
 /////////////////// Server-side functions ////////////////////
 //////////////////////////////////////////////////////////////
-
+/*
 var playerStates = [
     {
         userId: "0",
@@ -520,6 +522,8 @@ function TurnRight(amount) {
 
 recalcPlayers();
 
+
+*/
 //////////////////////////////////////////////////////////////
 /////////////////////////// START ////////////////////////////
 //////////////////////////////////////////////////////////////

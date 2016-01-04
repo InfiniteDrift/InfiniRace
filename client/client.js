@@ -6,7 +6,7 @@ Meteor.subscribe("players")
 
 carColours = [["#ff9900", "Orange"], ["#ff3300", "Red"], ["#FFBAD2","Pink"], ["#000000","Black"], ["#ffffff", "White"], ["#0000FF","Blue"]]
 
-//console.log(Meteor.username)
+//console.log(Meteor.call('GetPlayerState'));
 
 /*
 Meteor.startup(function(){
@@ -108,7 +108,3 @@ Template.colours.events({
         // additional code to do what you want with the category
     }
 });
-
-
-console.log(roadCurve(1))
-

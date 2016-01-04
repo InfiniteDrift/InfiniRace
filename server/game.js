@@ -18,122 +18,106 @@ var wheelGeometry, wheelMaterial;
 var carBox;
 var meter;
 var floorLevel;
-
-
-
-
-var playerStates = [
-    {
-        userId: "0",
-        posx: 0,
-        posy: floorLevel,
-        posz: roadCurve(0),
-        velocity: 0,
-        direction: roadDirection(0),
-        acceleration: { amount: 0, direction: roadDirection(0) },
-        score: 0,
-        carColour: "#123123"
-    }
-];
-
-function GetPlayerState() {
-    return Racers.findOne({userId: Meteor.userId()});
-}
-
-function GetPlayerStates() {
-    var players = [];
-    Racers.find().forEach( function(player) {
-        players.push(player);
-    });
-    console.log(players);
-    return players;
-}
-
 var maxSpeed = 0.25;
 
+Meteor.methods({
+   'GetPlayerState': function(){
+       return Racers.findOne({userId: Meteor.userId()});
+   },
+   'GetPlayerStates': function() {
+        var players = [];
+        Racers.find().forEach( function(player) {
+            players.push(player);
+        });
+        console.log(players);
+        return players;
+    },
+   'TurnLeft' : function(amount) {
+        var state = Meteor.call('GetPlayerState');
+        var direction;
+        if (amount >= 0 && amount <= 1) {
+            if (state.direction < maxAngle+roadDirection(state.posx)) {
+                direction = state.direction + (0.1*amount)*(Math.PI/5);
+            } else {
+                direction = maxAngle+roadDirection(state.posx);
+            }
+        }
+        Racers.update( {_id:state._id}, {$set: {direction:direction}});
+    },
 
-function Break(amount) {
-    var state = GetPlayerState();
-    var velocity = 0;
-    if (amount >= 0 && amount <= 1) {
-        if (state.velocity > 0) {
-            velocity -= maxSpeed/amount;
-            if (state.velocity < 0) {
+   'TurnRight': function(amount) {
+        var state = Meteor.call('GetPlayerState');
+        var direction;
+        if (amount >= 0 && amount <= 1) {
+            if (state.direction > -maxAngle+roadDirection(state.posx)) {
+                direction = state.direction - (0.1*amount)*(Math.PI/5);
+            } else {
+                direction = -maxAngle+roadDirection(state.posx);
+            }
+        }
+        Racers.update( {_id:state._id}, {$set: {direction:direction}});
+    },
+
+   'Break' : function(amount) {
+        var state = Meteor.call('GetPlayerState');
+        var velocity = 0;
+        if (amount >= 0 && amount <= 1) {
+            if (state.velocity > 0) {
+                velocity -= maxSpeed/amount;
+                if (state.velocity < 0) {
+                    velocity = 0;
+                }
+            } else {
                 velocity = 0;
             }
-        } else {
-            velocity = 0;
         }
-    }
-    Racers.update( {_id:Racers.findOne({userId:Meteor.userId()})['_id']}, {$set: {velocity:velocity}});
-}
+        Racers.update( {_id:state._id}, {$set: {velocity:velocity}});
+    },
 
-function Gas(amount) {
-    var state = GetPlayerState();
-    var velocity = 0;
+   'Gas': function(amount) {
+        var state = Meteor.call('GetPlayerState');
+        var velocity = 0;
 
-    if (amount > 0 && amount <= 1) {
-        if (state.velocity < maxSpeed) {
-            velocity += 0.0001 + Math.sqrt(amount*state.velocity);
-        } else if (state.velocity == 0) {
-            velocity = 0.001;
-        } else {
-            velocity = maxSpeed;
+        if (amount > 0 && amount <= 1) {
+            if (state.velocity < maxSpeed) {
+                velocity += 0.0001 + Math.sqrt(amount*state.velocity);
+            } else if (state.velocity == 0) {
+                velocity = 0.001;
+            } else {
+                velocity = maxSpeed;
+            }
         }
-    }
-    Racers.update( {_id:Racers.findOne({userId:Meteor.userId()})['_id']}, {$set: {velocity:velocity}});
-}
+        Racers.update( {_id:state._id}, {$set: {velocity:velocity}});
+    },
 
-function recalcPlayer(state) {
+   'Reset': function() {
+        var state = Meteor.call('GetPlayerState');
+        var posx = state.posx;
+        if (posx < 0) {
+            posx = 0;
+        }
+        var posz = roadCurve(posx);
+        var direction = roadDirection(posx);
+        var velocity = 0;
+        Racers.update( {_id:state._id}, {$set: {posx:posx, posz:posz, direction:direction, velocity:velocity}});
+    }
+
+
+});
+
+recalcPlayer = function(state) {
     var dt = (1/60);
     var interval = dt*1000;
     var posx = state.posx + -Math.sin(state.direction)*state.velocity*20*dt;
     var posz = state.posz + -Math.cos(state.direction)*state.velocity*20*dt;
-    setTimeout(recalcPlayer, interval, state);
-    Racers.update( {_id:Racers.findOne({userId:Meteor.userId()})['_id']}, {$set: {posx:posx, posz:posz}});
-}
+    Racers.update( {_id:state._id}, {$set: {posx:posx, posz:posz}});
+};
 
-function recalcPlayers() {
+recalcPlayers = function() {
+    console.log('Recalculating player positions')
     var t = 50;
-    var playerStates = GetPlayerStates();
+    var playerStates = Meteor.call('GetPlayerStates');
     for (var i = 0; i < playerStates.length; i++) {
         recalcPlayer(playerStates[i]);
     }
-}
-
-function Reset() {
-    var posx = GetPlayerState().posx;
-    if (posx < 0) {
-        posx = 0;
-    }
-    var posz = roadCurve(posx);
-    var direction = roadDirection(posx);
-    var velocity = 0;
-    Racers.update( {_id:Racers.findOne({userId:Meteor.userId()})['_id']}, {$set: {posx:posx, posz:posz, direction:direction, velocity:velocity}});
-}
-
-function TurnLeft(amount) {
-    var state = GetPlayerState();
-    var direction;
-    if (amount >= 0 && amount <= 1) {
-        if (state.direction < maxAngle+roadDirection(state.posx)) {
-            direction = state.direction + (0.1*amount)*(Math.PI/5);
-        } else {
-            direction = maxAngle+roadDirection(state.posx);
-        }
-    }
-    Racers.update( {_id:Racers.findOne({userId:Meteor.userId()})['_id']}, {$set: {direction:direction}});
-}
-
-function TurnRight(amount) {
-    var state = GetPlayerState();
-    var direction;
-    if (amount >= 0 && amount <= 1) {
-        if (state.direction > -maxAngle+roadDirection(state.posx)) {
-            direction = state.direction - (0.1*amount)*(Math.PI/5);
-        } else {
-            direction = -maxAngle+roadDirection(state.posx);
-        }
-    }
-    Racers.update( {_id:Racers.findOne({userId:Meteor.userId()})['_id']}, {$set: {direction:direction}});
-}
+};
