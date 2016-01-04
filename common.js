@@ -9,9 +9,22 @@ Images = new FS.Collection("images", {
 });
 
 Racers = new Mongo.Collection('racers');
-console.log('hej');
+
+
+var Test = function() {
+    console.log("test");
+};
 
 
 
+var maxForce = 0.1;
+var maxAngle = Math.PI/2;
+var roadWidth = 3;
 
+var carModel;
+var carMass = 1380;
+var wheelGeometry, wheelMaterial;
+var carBox;
+var meter;
+var floorLevel;
 

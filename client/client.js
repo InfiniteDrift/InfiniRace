@@ -18,9 +18,13 @@ Meteor.startup(function(){
 });
 */
 
-Template.game.helpers({
+Template.loadGame.helpers({
     start : function() {
-        initModel();
+        Meteor.defer(function () {
+            console.log("DOM is loaded")
+            initModel();
+
+        });
     }
 });
 
@@ -60,7 +64,7 @@ Accounts.ui.config({
 
 Template.leaderboard.racers = function () {
     var racers =  Racers.find({}, {sort: {score:-1}, limit: 5});
-    var userId = racers.map(function(p) { return p.id});
+    var userId = racers.map(function(p) { return p.userId});
     var users = Meteor.users.find({_id: {$in: userId}});
     var profilePic = users.map(function(p) {return p.profile["picture"]});
     var images = Images.find({_id: {$in: profilePic}});
@@ -82,7 +86,7 @@ Template.racersTable.helpers({
 
 Template.colours.helpers({
     colours: function(){
-        var currentColour = Racers.findOne({id:Meteor.userId()}).carColour;
+        var currentColour = Racers.findOne({userId:Meteor.userId()}).carColour;
         var map = new Map(carColours);
         var colourName = map.get(currentColour);
         var selected = [];
@@ -100,10 +104,11 @@ Template.colours.events({
     "change #colour-select": function (event, template) {
         var category = $(event.currentTarget).val();
         console.log("category : " + category);
-        Racers.update( {_id:Racers.findOne({id:Meteor.userId()})['_id']}, {$set: {carColour:category}});
+        Racers.update( {_id:Racers.findOne({userId:Meteor.userId()})['_id']}, {$set: {carColour:category}});
         // additional code to do what you want with the category
     }
 });
 
 
+console.log(roadCurve(1))
 

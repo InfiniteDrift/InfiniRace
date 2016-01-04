@@ -140,6 +140,8 @@
         <item url="file://$USER_HOME$/.meteor/packages/http/1.1.1/web.browser/httpcall_common.js" />
         <item url="file://$USER_HOME$/.meteor/packages/http/1.1.1/web.browser/httpcall_client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/id-map/1.0.4/web.browser/id-map.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/js/bootstrap.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/css/bootstrap.css" />
         <item url="file://$USER_HOME$/.meteor/packages/jquery/1.11.4/web.browser/jquery.js" />
         <item url="file://$USER_HOME$/.meteor/packages/jquery/1.11.4/web.browser/post.js" />
         <item url="file://$USER_HOME$/.meteor/packages/launch-screen/1.0.4/web.browser/default-behavior.js" />
@@ -352,6 +354,8 @@
       <root url="file://$USER_HOME$/.meteor/packages/http/1.1.1/web.browser/httpcall_common.js" />
       <root url="file://$USER_HOME$/.meteor/packages/http/1.1.1/web.browser/httpcall_client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/id-map/1.0.4/web.browser/id-map.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/js/bootstrap.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/twbs_bootstrap/3.3.6/web.browser/dist/css/bootstrap.css" />
       <root url="file://$USER_HOME$/.meteor/packages/jquery/1.11.4/web.browser/jquery.js" />
       <root url="file://$USER_HOME$/.meteor/packages/jquery/1.11.4/web.browser/post.js" />
       <root url="file://$USER_HOME$/.meteor/packages/launch-screen/1.0.4/web.browser/default-behavior.js" />

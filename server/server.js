@@ -1,8 +1,22 @@
 /**
  * Created by klug§ on 2015-12-10.
  */
+
+var maxForce = 0.1;
+var maxAngle = Math.PI/2;
+var roadWidth = 3;
+
+var carModel;
+var carMass = 1380;
+var wheelGeometry, wheelMaterial;
+var carBox;
+var meter;
+var floorLevel;
+
+
+
 Meteor.startup(function () {
-    if (Racers.find().count() === 0) {
+    /*if (Racers.find().count() === 0) {
         var names = ["Ada Lovelace",
             "Grace Hopper",
             "Marie Curie",
@@ -10,15 +24,20 @@ Meteor.startup(function () {
             "Nikola Tesla",
             "Claude Shannon"];
         for (var i = 0; i < names.length; i++)
-            Racers.insert({name: names[i], id: null, score: Math.floor(Math.random()*10)*5, posx: 0, posy: 0, posz:0, velocity: 0, direction:0, carColour: "#ffffff"});
-    }
+            Racers.insert({name: names[i],
+                id: null, score: Math.floor(Math.random()*10)*5, posx: 0, posy: 0, posz:0, velocity: 0, direction:0, carColour: "#ffffff"});
+    }*/
     Images.allow({
         'insert': function () {
             // add custom authentication code here
             return true;
         }
     });
+
+    console.log(roadCurve(1));
+
 });
+
 Meteor.publish('racers', function(){
     return Racers.find();
 });
@@ -30,8 +49,21 @@ Accounts.onLogin(function(user){
     var user = Meteor.users.findOne(id);
     console.log(user);
 
-    if (Racers.find({id: Meteor.userId() }).count() == 0){
-        Racers.insert({name: user.username, score: 100, posX: 0, posY: 0, velocity: 0, angle: 0, id:Meteor.userId()});
+    if (Racers.find({userId: Meteor.userId() }).count() == 0){
+        Racers.insert(
+            {
+                userId: Meteor.userId(),
+                name: user.username,
+                posx: 0,
+                posy: floorLevel,
+                posz: roadCurve(0),
+                velocity: 0,
+                direction: roadDirection(0),
+                acceleration: { amount: 0, direction: roadDirection(0) },
+                score: 0,
+                carColour: "#123123"
+            }
+        );
     }
 });
 
