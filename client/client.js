@@ -8,18 +8,22 @@ carColours = [["#ff9900", "Orange"], ["#ff3300", "Red"], ["#FFBAD2","Pink"], ["#
 
 //console.log(Meteor.call('GetPlayerState'));
 
-/*
-Meteor.startup(function(){
-    var user = Meteor.user().username;
-    console.log(user.profile);
-    if (Racers.find({id: Meteor.userId() }).count() == 0){
-        Racers.insert({name: user, score: 100, posX: 0, posY: 0, velocity: 0, angle: 0, id:Meteor.userId()});
-    }
-});
-*/
+
+/*Meteor.startup(function(){
+    Meteor._reload.reload();
+});*/
+
+
+reload = true;
 
 Template.loadGame.helpers({
     start : function() {
+        /*console.log(reload);
+        if(reload === true){
+            Meteor._reload.reload();
+            reload = false;
+            console.log(reload);
+        }*/
         Meteor.defer(function () {
             console.log("DOM is loaded")
             initModel();
@@ -47,6 +51,10 @@ Template.home.events({
             Images.remove(Meteor.user().profile["picture"])
         }
         Meteor.users.update(Meteor.userId(), {$set: {"profile.picture": id._id}});
+    },
+    'click #gameHref':function(){
+        //document.location.reload(true);
+        //Meteor._reload.reload();
     }
 });
 

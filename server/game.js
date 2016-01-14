@@ -29,7 +29,6 @@ Meteor.methods({
         Racers.find().forEach( function(player) {
             players.push(player);
         });
-        console.log(players);
         return players;
     },
    'TurnLeft' : function(amount) {
@@ -114,7 +113,6 @@ recalcPlayer = function(state) {
 };
 
 recalcPlayers = function() {
-    console.log('Recalculating player positions')
     var t = 50;
     var playerStates = Meteor.call('GetPlayerStates');
     for (var i = 0; i < playerStates.length; i++) {
