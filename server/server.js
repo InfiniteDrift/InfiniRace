@@ -64,7 +64,9 @@ Accounts.onLogin(function(user){
                 direction: roadDirection(0),
                 acceleration: { amount: 0, direction: roadDirection(0) },
                 score: 0,
-                carColour: "#123123"
+                carColour: "#123123",
+                drift: false,
+                currentDrift: 0,
             }
         );
     }

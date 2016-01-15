@@ -27,6 +27,8 @@ Template.loadGame.helpers({
         Meteor.defer(function () {
             console.log("DOM is loaded")
             initModel();
+            var s = new buzz.sound('InfiniRace.mp3');
+            s.play();
 
         });
     }
