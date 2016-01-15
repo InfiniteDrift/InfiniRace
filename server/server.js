@@ -46,7 +46,7 @@ Meteor.publish('racers', function(){
 });
 
 Accounts.onLogin(function(user){
-    var id = user.user._id
+    var id = user.user._id;
     console.log(id);
 
     var user = Meteor.users.findOne(id);
@@ -58,21 +58,20 @@ Accounts.onLogin(function(user){
                 userId: Meteor.userId(),
                 name: user.username,
                 posx: 0,
-                posy: floorLevel,
-                posz: roadCurve(0),
+                posy: roadCurve(0),
+                posz: floorLevel,
+                acceleration: true,
+                rpm: idleSpeed,
+                gear: 0,
+                handbrake: 0,
                 velocity: 0,
                 direction: roadDirection(0),
-                acceleration: { amount: 0, direction: roadDirection(0) },
+                steerAngle: 0,
                 score: 0,
                 carColour: "#123123"
             }
         );
     }
 });
-
-
-
-
-
 
 

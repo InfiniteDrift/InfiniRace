@@ -15,16 +15,28 @@ var Test = function() {
     console.log("test");
 };
 
+// Server globals
 
+//var angleOffset = -Math.PI/2;
+maxAngle = Math.PI/3;
+roadWidth = 3;
+idleSpeed = 880;// 880 rpm -- http://m-power.lv/files_misc/E30%20m3%20repair%20manual/miscellaneous/engine_information.htm
 
-var maxForce = 0.1;
-var maxAngle = Math.PI/2;
-var roadWidth = 3;
-
-var carModel;
-var carMass = 1380;
-var wheelGeometry, wheelMaterial;
-var carBox;
-var meter;
-var floorLevel;
-
+GearRatio = function(gear) {
+    // http://www.s14.net/specplus/comparisons.html
+    if (gear == 1) {
+        return 3.72;
+    } else if (gear == 2) {
+        return 2.40;
+    } else if (gear == 3) {
+        return 1.77;
+    } else if (gear == 4) {
+        return 1.26;
+    } else if (gear == 5) {
+        return 1;
+    } else if (gear == -1) {
+        return 4.23;
+    } else {
+        return 0;
+    }
+}

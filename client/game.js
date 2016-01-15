@@ -1,25 +1,4 @@
 //////////////////////////////////////////////////////////////
-///////////////////////// It begins! /////////////////////////
-//////////////////////////////////////////////////////////////
-
-// Server globals
-
-//var angleOffset = -Math.PI/2;
-var maxForce = 0.1;
-var maxAngle = Math.PI/2;
-var roadWidth = 3;
-
-var carModel;
-var carMass = 1380;
-var wheelGeometry, wheelMaterial;
-var carBox;
-var meter;
-var floorLevel;
-
-
-console.log(roadCurve(1));
-
-//////////////////////////////////////////////////////////////
 /////////////////// Client-side functions ////////////////////
 //////////////////////////////////////////////////////////////
 
@@ -27,14 +6,23 @@ console.log(roadCurve(1));
 var gridSideLength = 100;
 
 var renderer, scene, camera;
-var gameElement;
+var gameElement, gameGUI;
 var roads = 0;
 var roadSegments = [];
 var roadSegment;
 var cars;
 
+var keys = {
+    "left": 0,
+    "up": 0,
+    "right": 0,
+    "down": 0,
+    "q": 0,
+    "e": 0
+};
+
 var addGrids = function() {
-    if (calcDistance(camera.position.x, camera.position.z, scene.nextGrid.position.x, scene.nextGrid.position.z) < gridSideLength/4) {
+    if (calcDistance(camera.position.x, camera.position.y, scene.nextGrid.position.x, scene.nextGrid.position.y) < gridSideLength/4) {
         var tmp = scene.nextGrid;
         scene.nextGrid = scene.thisGrid;
         scene.thisGrid = tmp;
@@ -54,6 +42,9 @@ var addRoads = function() {
 }
 
 var getCar = function(state) {
+    if (state === undefined) {
+        return undefined;
+    }
     if (cars == undefined) {
         cars = Object();
     }
@@ -64,16 +55,18 @@ var getCar = function(state) {
 }
 
 var initCamera = function() {
+    gameElement = document.getElementById("game");
     camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.001, 1000 );
-    // OrthographicCamera(window.innerWidth / -2048, window.innerWidth / 2048, window.innerHeight / 2048, window.innerHeight / -2048, -64, 128);
+    // camera = new THREE.OrthographicCamera(window.innerWidth / -2048, window.innerWidth / 2048, window.innerHeight / 2048, window.innerHeight / -2048, -64, 128);
     function onResize() {
         camera.aspect = window.innerWidth/window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
-    window.addEventListener('resize', onResize, false);
+    gameElement.addEventListener('resize', onResize, false);
     camera.aspect = window.innerWidth/window.innerHeight;
     camera.updateProjectionMatrix();
+    camera.up = new THREE.Vector3(0,0,1);
     return camera;
 }
 
@@ -110,7 +103,8 @@ var initCar = function(state) {
     wheel1.translateX(-0.095);
     wheel1.translateY(-0.070);
     wheel1.translateZ(-0.195);
-    wheel1.rotateY(Math.PI);
+    wheel1.rotateZ(Math.PI);
+    wheel1.rotation.order = "YXZ";
     scene.add(wheel1);
     newCar.add(wheel1);
     var wheel2 = new THREE.Mesh(wheelGeometry, wheelMaterial);
@@ -118,6 +112,7 @@ var initCar = function(state) {
     wheel2.translateX( 0.095);
     wheel2.translateY(-0.070);
     wheel2.translateZ(-0.195);
+    wheel2.rotation.order = "YXZ";
     scene.add(wheel2);
     newCar.add(wheel2);
     var wheel3 = new THREE.Mesh(wheelGeometry, wheelMaterial);
@@ -125,7 +120,8 @@ var initCar = function(state) {
     wheel3.translateX(-0.095);
     wheel3.translateY(-0.070);
     wheel3.translateZ( 0.165);
-    wheel3.rotateY(Math.PI);
+    wheel3.rotateZ(Math.PI);
+    wheel3.rotation.order = "YXZ";
     scene.add(wheel3);
     newCar.add(wheel3);
     var wheel4 = new THREE.Mesh(wheelGeometry, wheelMaterial);
@@ -133,6 +129,7 @@ var initCar = function(state) {
     wheel4.translateX( 0.095);
     wheel4.translateY(-0.070);
     wheel4.translateZ( 0.165);
+    wheel4.rotation.order = "YXZ";
     scene.add(wheel4);
     newCar.add(wheel4);
     //new THREE.Vector3(0, -0.035, 0.165);
@@ -141,45 +138,91 @@ var initCar = function(state) {
     return newCar;
 }
 
+function keyLoop() {
+    var state = Meteor.call('GetPlayerState');
+    if (state === undefined) {
+        setTimeout(keyLoop, 100/6);
+        return;
+    }
+    if (keys.left != 0) {
+        Meteor.call('TurnLeft', keys.left);
+    } else if (state.steerAngle > 0 && state.velocity > 0) {
+        Meteor.call('TurnRight', state.steerAngle * state.velocity / 80);
+    }
+    if (keys.up != 0) {
+        Meteor.call('Accelerate', keys.up);
+    }
+    if (keys.right != 0) {
+        Meteor.call('TurnRight', keys.right);
+    } else if (state.steerAngle < 0 && state.velocity > 0) {
+        Meteor.call('TurnLeft', -state.steerAngle * state.velocity / 80);
+    }
+    if (keys.down != 0) {
+        Meteor.call('Decelerate', keys.down);
+    }
+    setTimeout(keyLoop, 100/6);
+}
+
 var initControls = function() {
     document.addEventListener('keydown', function( ev ) {
         switch ( ev.keyCode ) {
+            case 13: // enter
+                Meteor.call('Reset');
+                break;
+
+            case 32: // spacebar
+                Meteor.call('Handbrake',1);
+                break;
+
             case 37: // left
-                Meteor.call('TurnLeft',1);
+                keys.left = 1;
                 break;
 
             case 38: // forward
-                Meteor.call('Gas',1);
+                keys.up = 1;
                 break;
 
             case 39: // right
-                Meteor.call('TurnRight',1);
+                keys.right = 1;
                 break;
 
             case 40: // back
-                Meteor.call('Break',1);
+                keys.down = 1;
                 break;
 
-            case 13: // enter
-                Meteor.call('Reset');
+            case 69: // E
+                Meteor.call('ShiftUp');
+                break;
+
+            case 81: // Q
+                Meteor.call('ShiftDown');
                 break;
         }
     });
     document.addEventListener('keyup', function( ev ) {
         switch ( ev.keyCode ) {
+            case 32: // spacebar
+                Meteor.call('Handbrake',0);
+                break;
+
             case 37: // left
+                keys.left = 0;
                 break;
 
             case 38: // forward
+                keys.up = 0;
                 break;
 
             case 39: // right
+                keys.right = 0;
                 break;
 
             case 40: // back
+                keys.down = 0;
                 break;
         }
     });
+    keyLoop();
 }
 
 var initGame = function() {
@@ -202,20 +245,20 @@ var initGrid = function(gridLength) {
     scene.nextGrid.position.x += gridMid + gridLength;
     scene.add(scene.thisGrid);
     scene.add(scene.nextGrid);
-    scene.thisGrid.translateY(-0.1);
-    scene.nextGrid.translateY(-0.1);
+    scene.thisGrid.translateZ(-0.1);
+    scene.nextGrid.translateZ(-0.1);
 }
 
 var initLights = function() {
     var hemisphereLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
     hemisphereLight.color.setHSL( 0.6, 1, 0.6 );
     hemisphereLight.groundColor.setHSL( 206/360, 0.2, 0.5 );
-    hemisphereLight.position.set( 0, 500, 0 );
+    hemisphereLight.position.set( 0, 0, 500 );
     scene.add(hemisphereLight);
     scene.add(new THREE.AmbientLight("#0c0c0c"));
     var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
     directionalLight.color.setHSL( 0.1, 1, 0.95 );
-    directionalLight.position.set( -1, 1.75, 1 );
+    directionalLight.position.set( -1, 1, 1.75 );
     directionalLight.position.multiplyScalar( 50 );
     directionalLight.castShadow = true;
     directionalLight.shadowMapWidth = 2048;
@@ -235,12 +278,13 @@ initModel = function() {
     ldr.load(
         "bmw_no_wheels.json",
         function(geometry, materials) {
-            geometry.center(new THREE.Vector3(0, -0.035, 0.165));
+            geometry.center(new THREE.Vector3(0, 0.165, -0.035));
             var material = new THREE.MeshFaceMaterial(materials);
             carModel = new THREE.Mesh(geometry, material);//, 1258);
+            //carModel.rotateY(-Math.PI/2);
             carBox = new THREE.Box3().setFromObject(carModel);
-            floorLevel = carBox.max.y + 0.013;
             meter = (Math.abs(carBox.max.y) + Math.abs(carBox.min.y))/1.2;
+            floorLevel = 0.112;
             ldr.load(
                 "bmw_wheel.json",
                 function(wGeometry, wMaterials) {
@@ -255,11 +299,21 @@ initModel = function() {
 };
 
 var initRenderer = function() {
+    gameElement = document.getElementById("game");
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMapEnabled = true;
-    gameElement = document.getElementById("game");
     gameElement.appendChild(renderer.domElement);
+
+    var dataElement = document.getElementById("data");
+    var canvas = document.createElement('canvas');
+    canvas.id = "gameData";
+    canvas.width = window.innerWidth / 2;
+    canvas.height = window.innerHeight / 2;
+    canvas.style.zIndex   = 8;
+    canvas.style.position = "absolute";
+    dataElement.appendChild(canvas);
+    gameGUI = canvas.getContext("2d");
 }
 
 var initRoad  = function() {
@@ -273,7 +327,6 @@ var initRoad  = function() {
 
 var makeAndMoveRoadSegment = function(roadX) {
     var newRoadSegment = makeRoadPiece(roadX);
-    newRoadSegment.rotateX(Math.PI/2);
     return newRoadSegment;
 }
 
@@ -286,18 +339,18 @@ var makeGrid = function(gridLength) {
     var lineInterval = gridLength/100;
     for ( var i = 0; i <= gridLength; i++ ) {
         var line = new THREE.Line(gridGeometry, linesMaterial);
-        line.position.z = ( i * lineInterval ) - gridLength/2;
+        line.position.y = ( i * lineInterval ) - gridLength/2;
         group.add( line );
         line = new THREE.Line( gridGeometry, linesMaterial );
         line.position.x = ( i * lineInterval ) - gridLength/2;
-        line.rotation.y = Math.PI / 2;
+        line.rotation.z = Math.PI / 2;
         group.add( line );
     }
     return group;
 }
 
 var makeRoadPiece = function(roadX) {
-    var roadMaterial = new THREE.MeshLambertMaterial({ color: "#111111" });
+    var roadMaterial = new THREE.MeshLambertMaterial({ color: "#222222" });
     var roadShape = new THREE.Shape();
     var botMidVector = getMidRoadVector(roadX);
     var botLeftVector = getPointOnLeftLineForX(botMidVector, roadWidth);
@@ -311,13 +364,13 @@ var makeRoadPiece = function(roadX) {
     var topMidVector = getMidRoadVector(roadX + 1);
     var topLeftVector = getPointOnLeftLineForX(topMidVector, roadWidth);
     var topRightVector = getPointOnRightLineForX(topMidVector, roadWidth);
-    roadShape.moveTo(botMidVector.x, botMidVector.z);
-    roadShape.lineTo(botLeftVector.x, botLeftVector.z);
-    roadShape.bezierCurveTo(mid1LeftVector.x, mid1LeftVector.z, mid2LeftVector.x, mid2LeftVector.z, topLeftVector.x, topLeftVector.z);
-    roadShape.lineTo(topMidVector.x, topMidVector.z);
-    roadShape.lineTo(topRightVector.x, topRightVector.z);
-    roadShape.bezierCurveTo(mid2RightVector.x, mid2RightVector.z, mid1RightVector.x, mid1RightVector.z, botRightVector.x, botRightVector.z);
-    roadShape.lineTo(botMidVector.x, botMidVector.z);
+    roadShape.moveTo(botMidVector.x, botMidVector.y);
+    roadShape.lineTo(botLeftVector.x, botLeftVector.y);
+    roadShape.bezierCurveTo(mid1LeftVector.x, mid1LeftVector.y, mid2LeftVector.x, mid2LeftVector.y, topLeftVector.x, topLeftVector.y);
+    roadShape.lineTo(topMidVector.x, topMidVector.y);
+    roadShape.lineTo(topRightVector.x, topRightVector.y);
+    roadShape.bezierCurveTo(mid2RightVector.x, mid2RightVector.y, mid1RightVector.x, mid1RightVector.y, botRightVector.x, botRightVector.y);
+    roadShape.lineTo(botMidVector.x, botMidVector.y);
     var extrudeSettings = { amount: 0.001, bevelEnabled: false, bevelSegments: 0, steps: 1, bevelSize: 0, bevelThickness: 0 };
     var geometry = new THREE.ExtrudeGeometry(roadShape, extrudeSettings);
     return new THREE.Mesh(geometry, roadMaterial, 0);
@@ -334,33 +387,57 @@ var moveCamera = function(state) {
             for (i = 0.0; calcDistance(state.posx, roadCurve(state.posx), state.posx-i, roadCurve(state.posx-i)) < distance; i += 0.01 ) {}
             newX = state.posx - i;
         }
-        camera.position.set(newX, 0.5, roadCurve(newX));
-        camera.lookAt(getCar(state).position);//new THREE.Vector3(getCar(state).position.x + distance*0, 0, roadCurve(getCar(state).position.x + distance*0)));
+        camera.position.set(newX, roadCurve(newX), 0.5);
+        camera.lookAt(getCar(state).position);//new THREE.Vector3(getCar(state).position.x + distance*0, roadCurve(getCar(state).position.x + distance*0), 0));
+    } else {
+        camera.rotateX(0.01);
+        camera.rotateZ(0.04);
+        camera.rotateY(0.02);
     }
 }
 
 var renderGameScene = function() {
-    updatePlayers(GetPlayerStates());
-    moveCamera(GetPlayerState());
+    updatePlayers(Meteor.call('GetPlayerStates'));
+    moveCamera(Meteor.call('GetPlayerState'));
     addGrids();
     addRoads();
     requestAnimationFrame(renderGameScene);
     renderer.render(scene, camera);
+    if (gameGUI != undefined) {
+        gameGUI.clearRect(0, 0, window.innerWidth / 2, window.innerHeight / 2);
+        var state = Meteor.call('GetPlayerState');
+        if (state === undefined) {
+            return;
+        }
+        gameGUI.font = '20pt Calibri';
+        gameGUI.fillStyle = 'yellow';
+        gameGUI.fillText("RPM: " + Math.round(state.rpm / 10) * 10, 50, 50);
+        gameGUI.fillText("Gear: " + state.gear, 50, 75);
+        gameGUI.fillText("Speed: " + Math.round(state.velocity * 36) / 10 + " km/h", 50, 100);
+        gameGUI.font = '30pt Calibri';
+        gameGUI.fillText("Score: " + Math.round(state.score * 10) / 10 + "!", 50, 125);
+    }
 }
 
 var updateCar = function(car, state) {
     /* Move a 3D car object that may or may not belong to _this_ player. */
     car.position.x = state.posx;
-    car.position.y = 0.12;
-    car.position.z = state.posz;
-    car.rotation.y = state.direction;
+    car.position.y = state.posy;
+    car.position.z = floorLevel;
+    car.rotation.x = Math.PI/2;
+    car.rotation.y = state.direction - Math.PI / 2;
+    car.getObjectByName("wheel1").rotation.y = state.steerAngle;
     car.getObjectByName("wheel1").rotation.x -= state.velocity/0.25;
+    car.getObjectByName("wheel2").rotation.y = state.steerAngle;
     car.getObjectByName("wheel2").rotation.x += state.velocity/0.25;
     car.getObjectByName("wheel3").rotation.x -= state.velocity/0.25;
     car.getObjectByName("wheel4").rotation.x += state.velocity/0.25;
 }
 
 var updatePlayers = function(players) {
+    if (players === undefined) {
+        return;
+    }
     for (var i = 0; i < players.length; i++) {
         if (getCar(players[i])) {
             updateCar(getCar(players[i]), players[i]);
@@ -369,21 +446,4 @@ var updatePlayers = function(players) {
             updateCar(getCar(players[i]), players[i]);
         }
     }
-}
-
-
-
-//////////////////////////TMP////////////////////////////////////
-
-function GetPlayerState() {
-    return Racers.findOne({userId: Meteor.userId()});
-}
-
-function GetPlayerStates() {
-    var players = [];
-    Racers.find().forEach( function(player) {
-        players.push(player);
-    });
-    //console.log(players);
-    return players;
 }
