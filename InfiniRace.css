@@ -9,16 +9,32 @@
 
 @import url(http://fonts.googleapis.com/css?family=Monoton);
 
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: url('https://i.ytimg.com/vi/76oSkTwW4Bk/maxresdefault.jpg') no-repeat center center fixed; /*maxresdefault.jpg*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    margin-top: 0px;
+    margin: 0;
     font-family: Consolas, monaco, monospace;
+    padding: 0;
+    overflow: hidden;
+}
 
-
+#game {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    resize: both;
+    overflow: auto;
+    z-index: 1;
 }
 
 .street-machine {
